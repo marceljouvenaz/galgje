@@ -20,4 +20,14 @@ echo "het woord heeft $length letters" . PHP_EOL;
 echo "U heeft de volgende letters al gekozen: " . $gekozen . PHP_EOL;
 echo "U weet dit van het woord: " . $woordstatus[0] . PHP_EOL;
 echo "De volgende letters staan niet in het woord: " . PHP_EOL;
+//blanco galg
+echo (" +---+") . PHP_EOL;
+echo (" |   |") . PHP_EOL;
+echo ("     |") . PHP_EOL;
+echo ("     |") . PHP_EOL;
+echo ("     |") . PHP_EOL;
+echo ("     |") . PHP_EOL;
+echo ("     |") . PHP_EOL;
+echo ("=======") . PHP_EOL;
+
 ?>
