@@ -30,4 +30,10 @@ echo ("     |") . PHP_EOL;
 echo ("     |") . PHP_EOL;
 echo ("=======") . PHP_EOL;
 
+//deel 3, computer vraagt een letter,
+
+echo "Geef uw keuze voor een letter." . PHP_EOL;
+echo ">";
+$input = trim(fgets(STDIN));
+
 ?>
