@@ -40,12 +40,13 @@ $input = trim(fgets(STDIN));
 if (ctype_alpha($input)) {
 	if (strlen($input) == 1) {
 		echo "De door u gekozen letter is: $input" . PHP_EOL;
-		$gekozen = $gekozen . $input;
-		if (ctype_digit(strpos($gekozen, $input))) {
+		if (is_numeric(strpos($gekozen, $input))) {
 			echo "U heeft deze letter al eerder gekozen" . PHP_EOL;
-		} else {
+		} 
+		else {
 			echo "U heeft deze letter niet eerder gekozen" . PHP_EOL;
 		}
+		$gekozen .=  $input;
 	} else {
 		echo "U heeft meer dan één letter gekozen." . PHP_EOL;
 	}
