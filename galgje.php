@@ -37,9 +37,10 @@ echo "> ";
 $input = trim(fgets(STDIN));
 
 //is het een letter? 
-if (ctype_lower($input)) {
+if (ctype_alpha($input)) {
 	if (strlen($input) == 1) {
 		echo "De door u gekozen letter is: $input" . PHP_EOL;
+		$gekozen = $gekozen . $input;
 	} else {
 		echo "U heeft meer dan één letter gekozen." . PHP_EOL;
 	}
