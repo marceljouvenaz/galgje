@@ -11,7 +11,7 @@ $gekozen = '';
 $woordstatus = array('',);
 
 //kies een woord 
-$galgwoord = $woordenlijst[rand(1, sizeof($woordenlijst))];
+$galgwoord = $woordenlijst[rand(1, sizeof($woordenlijst)) - 1];
 $length = strlen($galgwoord);
 echo "het woord heeft $length letters" . PHP_EOL;
 
@@ -45,6 +45,12 @@ if (ctype_alpha($input)) {
 		} 
 		else {
 			echo "U heeft deze letter niet eerder gekozen" . PHP_EOL;
+			if (is_numeric(strpos($galgwoord, $input))) {
+				echo "Uw letter komt voor in het woord." . PHP_EOL
+				;
+			} else {
+				echo "Uw letter komt niet voor in het woord.";
+			}	
 		}
 		$gekozen .=  $input;
 	} else {
