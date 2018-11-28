@@ -36,11 +36,16 @@ echo "Geef uw keuze voor een letter." . PHP_EOL;
 echo "> ";
 $input = trim(fgets(STDIN));
 
-//is het een letter? 
+//is het een letter? is die letter eerder gebruikt?
 if (ctype_alpha($input)) {
 	if (strlen($input) == 1) {
 		echo "De door u gekozen letter is: $input" . PHP_EOL;
 		$gekozen = $gekozen . $input;
+		if (ctype_digit(strpos($gekozen, $input))) {
+			echo "U heeft deze letter al eerder gekozen" . PHP_EOL;
+		} else {
+			echo "U heeft deze letter niet eerder gekozen" . PHP_EOL;
+		}
 	} else {
 		echo "U heeft meer dan één letter gekozen." . PHP_EOL;
 	}
