@@ -46,7 +46,4 @@ if (ctype_lower($input)) {
 } else {
 	echo "Uw keuze is geen letter." . PHP_EOL;
 }
-
-
-
 ?>
