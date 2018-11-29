@@ -41,15 +41,15 @@ if (ctype_alpha($input)) {
 	if (strlen($input) == 1) {
 		echo "De door u gekozen letter is: $input" . PHP_EOL;
 		if (is_numeric(strpos($gekozen, $input))) {
-			echo "U heeft deze letter al eerder gekozen" . PHP_EOL;
+			echo "deze letter heeft u al eerder geprobeerd" . PHP_EOL;
 		} 
 		else {
 			echo "U heeft deze letter niet eerder gekozen" . PHP_EOL;
 			if (is_numeric(strpos($galgwoord, $input))) {
-				echo "Uw letter komt voor in het woord." . PHP_EOL
+				echo "goedzo, deze letter komt voor in het woord." . PHP_EOL
 				;
 			} else {
-				echo "Uw letter komt niet voor in het woord.";
+				echo "jammer, deze letter komt niet voor in het woord.";
 			}	
 		}
 		$gekozen .=  $input;
@@ -57,6 +57,6 @@ if (ctype_alpha($input)) {
 		echo "U heeft meer dan één letter gekozen." . PHP_EOL;
 	}
 } else {
-	echo "Uw keuze is geen letter." . PHP_EOL;
+	echo "dit is geen geldige letter voor galgje." . PHP_EOL;
 }
 ?>
