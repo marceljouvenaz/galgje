@@ -94,9 +94,28 @@ function tekengalg($arg1)
 	}
 }
 
+function toonwoord($letter)
+{
+	global $galgwoord, $woordstatus;
+	$galgarray = str_split($galgwoord);
+	for ($i=0; $i < strlen($galgwoord); $i++) { 
+		if ($galgarray[$i] == $letter) {
+			$woordstatus[$i] = $letter; 
+		}
+	}
+
+	for ($i=0; $i < strlen($galgwoord); $i++) { 
+		echo $woordstatus[$i] . " ";
+	}
+	echo PHP_EOL;
+}
+
 //kies een woord 
 $galgwoord = $woordenlijst[rand(1, sizeof($woordenlijst)) - 1];
 $length = strlen($galgwoord);
+for ($i=0; $i < $length; $i++) { 
+	$woordstatus[$i] = '*';
+}
 echo "het woord heeft $length letters" . PHP_EOL;
 
 //blanco statusscherm
@@ -125,7 +144,7 @@ if (ctype_alpha($input)) {
 			if (is_numeric(strpos($galgwoord, $input))) {
 				echo "goedzo, deze letter komt voor in het woord." . PHP_EOL;
 				// toon woord met alle bekende letters
-
+				toonwoord($input);
 			} else {
 				echo "jammer, deze letter komt niet voor in het woord." . PHP_EOL;
 				$aantalfouten += 1;
