@@ -8,12 +8,13 @@ $woordenlijst = array(
 	"elleboog",
 );
 $gekozen = '';
-$woordstatus = array('',);
+$woordstatus = array('*',);
 $aantalfouten = 0;
 
 //function
 
 function tekengalg($arg1)
+//tekent de juiste galg
 {
 	if ($arg1 == 0) {
 		//blanco galg
@@ -95,6 +96,7 @@ function tekengalg($arg1)
 }
 
 function toonwoord($letter)
+//print de bekende letters in het woord, met verder sterretjes
 {
 	global $galgwoord, $woordstatus;
 	$galgarray = str_split($galgwoord);
@@ -108,6 +110,24 @@ function toonwoord($letter)
 		echo $woordstatus[$i] . " ";
 	}
 	echo PHP_EOL;
+}
+
+function doorgaan($int){
+//true is doorgaan	
+//zes fouten dan return false
+//woord is af dan return false, 
+	global $length, $woordstatus;
+	$boolret = false;
+	if ($int == 6) {
+	} else {
+		# stop als geen asterisk
+		for ($i=0; $i < $length; $i++) { 
+			if ($woordstatus[$i] == '*') {
+				$boolret = true;
+			}
+		}
+	}
+	return $boolret;
 }
 
 //kies een woord 
@@ -127,36 +147,39 @@ echo "U weet dit van het woord: " . $woordstatus[0] . PHP_EOL;
 echo "De volgende letters staan niet in het woord: " . PHP_EOL;
 //deel 3, computer vraagt een letter,
 
-echo "Geef uw keuze voor een letter." . PHP_EOL;
-echo "> ";
-$input = trim(fgets(STDIN));
+while (doorgaan($aantalfouten)) {
+	echo "Geef uw keuze voor een letter." . PHP_EOL;
+	echo "> ";
+	$input = trim(fgets(STDIN));
 
-//is het een letter? is die letter eerder gebruikt?
-if (ctype_alpha($input)) {
-	if (strlen($input) == 1) {
-		echo "De door u gekozen letter is: $input" . PHP_EOL;
-		if (is_numeric(strpos($gekozen, $input))) {
-			echo "deze letter heeft u al eerder geprobeerd" . PHP_EOL;
-		} 
-		else {
-			echo "U heeft deze letter niet eerder gekozen" . PHP_EOL;
-			$gekozen .= $input;
-			if (is_numeric(strpos($galgwoord, $input))) {
-				echo "goedzo, deze letter komt voor in het woord." . PHP_EOL;
-				// toon woord met alle bekende letters
-				toonwoord($input);
-			} else {
-				echo "jammer, deze letter komt niet voor in het woord." . PHP_EOL;
-				$aantalfouten += 1;
-				tekengalg($aantalfouten);
-				// nieuw plaatje
-			}	
+	//is het een letter? is die letter eerder gebruikt?
+	if (ctype_alpha($input)) {
+		if (strlen($input) == 1) {
+			echo "De door u gekozen letter is: $input" . PHP_EOL;
+			if (is_numeric(strpos($gekozen, $input))) {
+				echo "deze letter heeft u al eerder geprobeerd" . PHP_EOL;
+			} 
+			else {
+				echo "U heeft deze letter niet eerder gekozen" . PHP_EOL;
+				$gekozen .= $input;
+				if (is_numeric(strpos($galgwoord, $input))) {
+					echo "goedzo, deze letter komt voor in het woord." . PHP_EOL;
+					// toon woord met alle bekende letters
+					toonwoord($input);
+				} else {
+					echo "jammer, deze letter komt niet voor in het woord." . PHP_EOL;
+					$aantalfouten += 1;
+					tekengalg($aantalfouten);
+					// nieuw plaatje
+				}	
+			}
+			$gekozen .=  $input;
+		} else {
+			echo "U heeft meer dan één letter gekozen." . PHP_EOL;
 		}
-		$gekozen .=  $input;
 	} else {
-		echo "U heeft meer dan één letter gekozen." . PHP_EOL;
+		echo "dit is geen geldige letter voor galgje." . PHP_EOL;
 	}
-} else {
-	echo "dit is geen geldige letter voor galgje." . PHP_EOL;
 }
+
 ?>
