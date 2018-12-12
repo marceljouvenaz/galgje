@@ -181,5 +181,9 @@ while (doorgaan($aantalfouten)) {
 		echo "dit is geen geldige letter voor galgje." . PHP_EOL;
 	}
 }
-
+if ($aantalfouten == 6) {
+	echo "sorry, u heeft verloren" . PHP_EOL;
+}else{
+	echo "gefeliciteerd, u heeft gewonnen" . PHP_EOL;
+}
 ?>
