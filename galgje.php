@@ -11,89 +11,79 @@ $gekozen = '';
 $woordstatus = array('*',);
 $aantalfouten = 0;
 
-//function
+//galgjes in heredoc strings
+$galg[0] = <<<ABC
+ +---+
+ |   | 
+     |
+     |
+     |     
+     |
+     |
+=======
+ABC;
+$galg[1] = <<<ABC
+ +---+
+ |   | 
+ o   |
+     |
+     |     
+     |
+     |
+=======
+ABC;
+$galg[2] = <<<ABC
+ +---+
+ |   | 
+ o   |
+ |   |
+     |     
+     |
+     |
+=======
+ABC;
+$galg[3] = <<<ABC
+ +---+
+ |   | 
+ o   |
+/|   |
+     |     
+     |
+     |
+=======
+ABC;
+$galg[4] = <<<ABC
+ +---+
+ |   | 
+ o   |
+/|\\  |
+     |     
+     |
+     |
+=======
+ABC;
+$galg[5] = <<<ABC
+ +---+
+ |   | 
+ o   |
+/|\\  |
+/    |     
+     |
+     |
+=======
+ABC;
+$galg[6] = <<<ABC
+ +---+
+ |   | 
+ o   |
+/|\\  |
+/ \\  |     
+     |
+     |
+=======
+ABC;
 
-function tekengalg($arg1)
-//tekent de juiste galg
-{
-	if ($arg1 == 0) {
-		//blanco galg
-		echo (" +---+") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("=======") . PHP_EOL;
-	}
-	if ($arg1 == 1) {
-		// galg1 
-		echo (" +---+") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo (" o   |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("=======") . PHP_EOL;	
-	}
-	if ($arg1 == 2) {
-		//galg2
-		echo (" +---+") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo (" o   |") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("=======") . PHP_EOL;
-	}
-	if ($arg1 == 3){
-		//galg3
-		echo (" +---+") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo (" o   |") . PHP_EOL;
-		echo ("/|   |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("=======") . PHP_EOL;
-	}
-	if ($arg1 == 4){
-		//galg4
-		echo (" +---+") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo (" o   |") . PHP_EOL;
-		echo ("/|\  |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("=======") . PHP_EOL;
-	}
-	if ($arg1 == 5){
-		//galg5
-		echo (" +---+") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo (" o   |") . PHP_EOL;
-		echo ("/|\  |") . PHP_EOL;
-		echo ("/    |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("=======") . PHP_EOL;
-	}
-	if ($arg1 == 6){
-		//galg6
-		echo (" +---+") . PHP_EOL;
-		echo (" |   |") . PHP_EOL;
-		echo (" o   |") . PHP_EOL;
-		echo ("/|\  |") . PHP_EOL;
-		echo ("/ \  |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("     |") . PHP_EOL;
-		echo ("=======") . PHP_EOL;
-	}
-}
+//function
 
 function toonwoord($letter)
 //print de bekende letters in het woord, met verder sterretjes
@@ -117,29 +107,24 @@ function doorgaan($int){
 //zes fouten dan return false
 //woord is af dan return false, 
 	global $length, $woordstatus;
-	$boolret = false;
-	if ($int == 6) {
-	} else {
-		# stop als geen asterisk
+	if ($int !== 6) {
 		for ($i=0; $i < $length; $i++) { 
 			if ($woordstatus[$i] == '*') {
-				$boolret = true;
+				return true;
 			}
 		}
 	}
-	return $boolret;
+	return false;
 }
 
 //kies een woord 
-$galgwoord = $woordenlijst[rand(1, sizeof($woordenlijst)) - 1];
+$galgwoord = $woordenlijst[rand(0, sizeof($woordenlijst)-1)];
 $length = strlen($galgwoord);
-for ($i=0; $i < $length; $i++) { 
-	$woordstatus[$i] = '*';
-}
+$woordstatus = str_repeat('*', strlen($galgwoord));
 echo "het woord heeft $length letters" . PHP_EOL;
 
 //blanco statusscherm
-tekengalg($aantalfouten);
+echo $galg[0];
 
 //gekozen letters, woordstatus, foute letters, stand van de galg
 echo "U heeft de volgende letters al gekozen: " . $gekozen . PHP_EOL;
@@ -148,8 +133,7 @@ echo "De volgende letters staan niet in het woord: " . PHP_EOL;
 //deel 3, computer vraagt een letter,
 
 while (doorgaan($aantalfouten)) {
-	echo "Geef uw keuze voor een letter." . PHP_EOL;
-	echo "> ";
+	echo "Geef uw keuze voor een letter." . PHP_EOL . "> ";
 	$input = trim(fgets(STDIN));
 
 	//is het een letter? is die letter eerder gebruikt?
@@ -169,7 +153,7 @@ while (doorgaan($aantalfouten)) {
 				} else {
 					echo "jammer, deze letter komt niet voor in het woord." . PHP_EOL;
 					$aantalfouten += 1;
-					tekengalg($aantalfouten);
+					echo $galg[$aantalfouten];
 					// nieuw plaatje
 				}	
 			}
